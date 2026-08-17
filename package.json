@@ -1,0 +1,14 @@
+{
+  "name": "kommen",
+  "version": "0.1.0",
+  "description": "A better PWA experience for Google Messages — embedded titlebar and cozier UI.",
+  "private": true,
+  "scripts": {
+    "dev": "web-ext run --source-dir . --target chromium",
+    "lint": "web-ext lint --source-dir .",
+    "build": "web-ext build --source-dir . --artifacts-dir dist"
+  },
+  "devDependencies": {
+    "web-ext": "^8.3.0"
+  }
+}

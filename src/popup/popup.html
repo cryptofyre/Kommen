@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kommen Settings</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header class="popup-header">
+      <span class="popup-logo" aria-hidden="true">💬</span>
+      <h1 class="popup-title">Kommen</h1>
+      <p class="popup-subtitle">Google Messages — enhanced</p>
+    </header>
+
+    <main class="popup-main">
+      <section class="settings-section">
+        <h2 class="settings-heading">Display</h2>
+
+        <label class="setting-row">
+          <span class="setting-label">Embedded titlebar</span>
+          <input type="checkbox" id="titlebarEnabled" class="toggle" />
+        </label>
+
+        <label class="setting-row">
+          <span class="setting-label">Compact titlebar</span>
+          <input type="checkbox" id="compactMode" class="toggle" />
+        </label>
+
+        <div class="setting-row">
+          <span class="setting-label">Theme</span>
+          <select id="theme" class="select">
+            <option value="system">System default</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </div>
+      </section>
+    </main>
+
+    <footer class="popup-footer">
+      <span id="save-status" class="save-status" aria-live="polite"></span>
+      <button id="save-btn" class="btn-primary">Save</button>
+    </footer>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
