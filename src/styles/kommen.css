@@ -1,0 +1,250 @@
+/*
+ * Kommen – Main Stylesheet
+ *
+ * Provides:
+ *  1. Embedded titlebar  (#kommen-titlebar)
+ *  2. Cozy / warm UI overrides for Google Messages
+ *  3. Light/dark theme tokens via CSS custom properties
+ *  4. Compact mode
+ */
+
+/* ============================================================
+   1. Theme Tokens
+   ============================================================ */
+
+/* Default (system) – map to OS preference */
+:root[data-kommen] {
+  --kommen-bg: #fdf6ee;
+  --kommen-surface: #fff8f2;
+  --kommen-border: rgba(0, 0, 0, 0.08);
+  --kommen-text: #1a1a1a;
+  --kommen-text-muted: #6b6b6b;
+  --kommen-accent: #d97757;
+  --kommen-accent-hover: #bf6245;
+  --kommen-bubble-out: #d97757;
+  --kommen-bubble-in: #f2e8df;
+  --kommen-radius: 18px;
+  --kommen-titlebar-h: 38px;
+  --kommen-font: "Google Sans", "Segoe UI", system-ui, sans-serif;
+  --kommen-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  --kommen-titlebar-bg: #f5ede4;
+  --kommen-titlebar-text: #3d2b1f;
+  --kommen-wc-hover: rgba(0, 0, 0, 0.08);
+  --kommen-wc-close-hover: #e74c3c;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-kommen]:not([data-kommen-theme="light"]) {
+    --kommen-bg: #1e1a18;
+    --kommen-surface: #28221f;
+    --kommen-border: rgba(255, 255, 255, 0.07);
+    --kommen-text: #f0e6dc;
+    --kommen-text-muted: #9e8e83;
+    --kommen-accent: #e88b6c;
+    --kommen-accent-hover: #f0a080;
+    --kommen-bubble-out: #c4643e;
+    --kommen-bubble-in: #332b27;
+    --kommen-titlebar-bg: #181210;
+    --kommen-titlebar-text: #e8ddd4;
+    --kommen-wc-hover: rgba(255, 255, 255, 0.08);
+    --kommen-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* Explicit light override */
+:root[data-kommen][data-kommen-theme="light"] {
+  --kommen-bg: #fdf6ee;
+  --kommen-surface: #fff8f2;
+  --kommen-border: rgba(0, 0, 0, 0.08);
+  --kommen-text: #1a1a1a;
+  --kommen-text-muted: #6b6b6b;
+  --kommen-accent: #d97757;
+  --kommen-accent-hover: #bf6245;
+  --kommen-bubble-out: #d97757;
+  --kommen-bubble-in: #f2e8df;
+  --kommen-titlebar-bg: #f5ede4;
+  --kommen-titlebar-text: #3d2b1f;
+  --kommen-wc-hover: rgba(0, 0, 0, 0.08);
+  --kommen-wc-close-hover: #e74c3c;
+  --kommen-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
+
+/* Explicit dark override */
+:root[data-kommen][data-kommen-theme="dark"] {
+  --kommen-bg: #1e1a18;
+  --kommen-surface: #28221f;
+  --kommen-border: rgba(255, 255, 255, 0.07);
+  --kommen-text: #f0e6dc;
+  --kommen-text-muted: #9e8e83;
+  --kommen-accent: #e88b6c;
+  --kommen-accent-hover: #f0a080;
+  --kommen-bubble-out: #c4643e;
+  --kommen-bubble-in: #332b27;
+  --kommen-titlebar-bg: #181210;
+  --kommen-titlebar-text: #e8ddd4;
+  --kommen-wc-hover: rgba(255, 255, 255, 0.08);
+  --kommen-wc-close-hover: #c0392b;
+  --kommen-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* ============================================================
+   2. Titlebar
+   ============================================================ */
+
+#kommen-titlebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--kommen-titlebar-h);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  background: var(--kommen-titlebar-bg);
+  border-bottom: 1px solid var(--kommen-border);
+  box-shadow: var(--kommen-shadow);
+  font-family: var(--kommen-font);
+  color: var(--kommen-titlebar-text);
+  -webkit-app-region: drag;
+  app-region: drag;
+  user-select: none;
+}
+
+.kommen-drag-region {
+  flex: 1;
+  height: 100%;
+}
+
+.kommen-identity {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.kommen-logo {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.kommen-title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--kommen-titlebar-text);
+}
+
+/* Window controls */
+.kommen-window-controls {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding-right: 6px;
+  -webkit-app-region: no-drag;
+  app-region: no-drag;
+}
+
+.kommen-wc-btn {
+  width: 28px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  color: var(--kommen-titlebar-text);
+  font-size: 12px;
+  border-radius: 4px;
+  cursor: default;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  transition: background 0.15s, opacity 0.15s;
+}
+
+.kommen-wc-btn:hover {
+  background: var(--kommen-wc-hover);
+  opacity: 1;
+}
+
+.kommen-btn-close:hover {
+  background: var(--kommen-wc-close-hover);
+  color: #fff;
+}
+
+/* Push page content below the titlebar */
+:root[data-kommen] body {
+  padding-top: var(--kommen-titlebar-h) !important;
+}
+
+/* ============================================================
+   3. Cozy UI Overrides
+   ============================================================ */
+
+/* Background */
+:root[data-kommen] body,
+:root[data-kommen] mw-app {
+  background: var(--kommen-bg) !important;
+}
+
+/* Conversation list panel */
+:root[data-kommen] mw-conversation-list-item,
+:root[data-kommen] .conv-container {
+  border-radius: 12px !important;
+  margin: 2px 6px !important;
+  transition: background 0.15s !important;
+}
+
+/* Message bubbles – outgoing */
+:root[data-kommen] .message-wrapper.ng-star-inserted .bubble:not(.incoming),
+:root[data-kommen] mw-message-part .bubble:not(.incoming) {
+  background: var(--kommen-bubble-out) !important;
+  border-radius: var(--kommen-radius) var(--kommen-radius) 4px
+    var(--kommen-radius) !important;
+  color: #fff !important;
+}
+
+/* Message bubbles – incoming */
+:root[data-kommen] .bubble.incoming,
+:root[data-kommen] mw-message-part .bubble.incoming {
+  background: var(--kommen-bubble-in) !important;
+  border-radius: var(--kommen-radius) var(--kommen-radius) var(--kommen-radius)
+    4px !important;
+  color: var(--kommen-text) !important;
+}
+
+/* Input area */
+:root[data-kommen] mw-message-send-bar,
+:root[data-kommen] .compose-container {
+  background: var(--kommen-surface) !important;
+  border-top: 1px solid var(--kommen-border) !important;
+}
+
+/* Scrollbar */
+:root[data-kommen] ::-webkit-scrollbar {
+  width: 6px;
+}
+
+:root[data-kommen] ::-webkit-scrollbar-thumb {
+  background: var(--kommen-accent);
+  border-radius: 3px;
+  opacity: 0.6;
+}
+
+/* ============================================================
+   4. Compact Mode
+   ============================================================ */
+
+:root[data-kommen][data-kommen-compact] {
+  --kommen-titlebar-h: 28px;
+}
+
+:root[data-kommen][data-kommen-compact] .kommen-wc-btn {
+  width: 24px;
+  height: 20px;
+}
+
+:root[data-kommen][data-kommen-compact] .kommen-title {
+  font-size: 11px;
+}

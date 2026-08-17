@@ -1,0 +1,42 @@
+{
+  "manifest_version": 3,
+  "name": "Kommen",
+  "short_name": "Kommen",
+  "version": "0.1.0",
+  "description": "A better PWA experience for Google Messages — embedded titlebar and cozier UI.",
+  "icons": {
+    "16": "src/assets/icons/icon16.png",
+    "32": "src/assets/icons/icon32.png",
+    "48": "src/assets/icons/icon48.png",
+    "128": "src/assets/icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "src/popup/popup.html",
+    "default_icon": {
+      "16": "src/assets/icons/icon16.png",
+      "32": "src/assets/icons/icon32.png",
+      "48": "src/assets/icons/icon48.png",
+      "128": "src/assets/icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "src/background/service_worker.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://messages.google.com/*"],
+      "js": ["src/content/content.js"],
+      "css": ["src/styles/kommen.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": ["storage"],
+  "host_permissions": ["https://messages.google.com/*"],
+  "web_accessible_resources": [
+    {
+      "resources": ["src/assets/*", "src/styles/*"],
+      "matches": ["https://messages.google.com/*"]
+    }
+  ]
+}
